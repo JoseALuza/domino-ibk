@@ -13,7 +13,28 @@ startButton.addEventListener('click', () => {
   welcomeCard.style.display = 'none';
 });
 
-  
+const now  = new Date();
+const date = now.toISOString().split('T')[0];
+const time = now.toTimeString().split(' ')[0];
+
+fetch('https://json-server-domino-ibk.onrender.com/ingresos', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ name, date, time })
+})
+.then(res => {
+  if (!res.ok) throw new Error('Error al guardar ingreso');
+  return res.json();
+})
+.then(entry => {
+  console.log('Ingreso guardado:', entry);
+  welcomeCard.style.display = 'none';
+})
+.catch(err => {
+  console.error(err);
+  alert('No se pudo registrar tu nombre. Intenta de nuevo.');
+});
+
   const posicionesCorrectas = {
     I1: [30, 30], I2: [30, 210], I3: [30, 390],
     B1: [180, 30], B4: [320, -10], B7: [450, 70], B2: [180, 210],
