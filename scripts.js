@@ -1,4 +1,19 @@
 
+const welcomeCard   = document.getElementById('welcome-card');
+const startButton   = document.getElementById('start-button');
+const usernameInput = document.getElementById('username-input');
+
+startButton.addEventListener('click', () => {
+  const name = usernameInput.value.trim();
+  if (!name) {
+    usernameInput.focus();
+    return;
+  }
+  console.log(`¡Bienvenido, ${name}!`);
+  welcomeCard.style.display = 'none';
+});
+
+  
   const posicionesCorrectas = {
     I1: [30, 30], I2: [30, 210], I3: [30, 390],
     B1: [180, 30], B4: [320, -10], B7: [450, 70], B2: [180, 210],
