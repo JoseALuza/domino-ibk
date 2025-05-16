@@ -3,9 +3,18 @@ const startButton   = document.getElementById('start-button');
 const usernameInput = document.getElementById('username-input');
 
 startButton.addEventListener('click', () => {
-  const name = usernameInput.value.trim();
-  if (!name || name.split(' ').filter(w => w.length > 0).length < 2) {
+    const words = name.split(' ').filter(w => w.length > 0);
+  if (words.length < 2) {
     alert('Por favor, ingresa nombre y apellido completos');
+    usernameInput.focus();
+    return;
+  }
+
+  // Validar que solo tenga letras y espacios (sin números ni emojis)
+  // Regex: solo letras (mayúsculas o minúsculas) y espacios
+  const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+$/;
+  if (!regex.test(name)) {
+    alert('El nombre y apellido solo deben contener letras y espacios');
     usernameInput.focus();
     return;
   }
