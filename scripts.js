@@ -1,4 +1,3 @@
-
 const welcomeCard   = document.getElementById('welcome-card');
 const startButton   = document.getElementById('start-button');
 const usernameInput = document.getElementById('username-input');
@@ -9,30 +8,31 @@ startButton.addEventListener('click', () => {
     usernameInput.focus();
     return;
   }
-  console.log(`¡Bienvenido, ${name}!`);
-  welcomeCard.style.display = 'none';
-});
 
-const now  = new Date();
-const date = now.toISOString().split('T')[0];
-const time = now.toTimeString().split(' ')[0];
+  // Fecha y hora SOLO cuando se hace click
+  const now  = new Date();
+  const date = now.toISOString().split('T')[0];
+  const time = now.toTimeString().split(' ')[0];
 
-fetch('https://json-server-domino-ibk.onrender.com/ingresos', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ name, date, time })
-})
-.then(res => {
-  if (!res.ok) throw new Error('Error al guardar ingreso');
-  return res.json();
-})
-.then(entry => {
-  console.log('Ingreso guardado:', entry);
-  welcomeCard.style.display = 'none';
-})
-.catch(err => {
-  console.error(err);
-  alert('No se pudo registrar tu nombre. Intenta de nuevo.');
+  // POST al backend
+  fetch('https://json-server-domino-ibk.onrender.com/ingresos', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, date, time })
+  })
+  .then(res => {
+    if (!res.ok) throw new Error('Error al guardar ingreso');
+    return res.json();
+  })
+  .then(entry => {
+    console.log('Ingreso guardado:', entry);
+    // Ocultar la card solo si guardó OK
+    welcomeCard.style.display = 'none';
+  })
+  .catch(err => {
+    console.error(err);
+    alert('No se pudo registrar tu nombre. Intenta de nuevo.');
+  });
 });
 
   const posicionesCorrectas = {
