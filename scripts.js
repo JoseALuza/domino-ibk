@@ -3,7 +3,7 @@ const startButton   = document.getElementById('start-button');
 const usernameInput = document.getElementById('username-input');
 
 startButton.addEventListener('click', () => {
-    const words = name.split(' ').filter(w => w.length > 0);
+  const words = name.split(' ').filter(w => w.length > 0);
   if (words.length < 2) {
     alert('Por favor, ingresa nombre y apellido completos');
     usernameInput.focus();
@@ -79,10 +79,12 @@ startButton.addEventListener('click', () => {
   }
 
   function mostrarMensajeInCorrecto() {
-    sonidoInCorrecto.play();
-    mensajeError.style.display = 'block';
-    setTimeout(() => mensajeError.style.display = 'none', 1500);
-  }
+  if (mensajeError.style.display === 'block') return; // ya está visible, no hacer nada
+  sonidoInCorrecto.play();
+  mensajeError.style.display = 'block';
+  setTimeout(() => mensajeError.style.display = 'none', 1500);
+}
+
 
   const sonidoVictoria = new Audio('assets/sounds/ganaste.mp3');  // Ruta al archivo de sonido
 
@@ -123,7 +125,7 @@ startButton.addEventListener('click', () => {
     ];
   }
 
-  document.querySelectorAll('.cartilla').forEach(cartilla => {
+document.querySelectorAll('.cartilla').forEach(cartilla => {
   const id = cartilla.id;
 
   if (['I1', 'B1', 'K1'].includes(id)) {
@@ -135,15 +137,15 @@ startButton.addEventListener('click', () => {
     piezasCorrectas.add(id);
 
     const casillaElement = document.querySelector(`#casilla-${id}`);
-      if (casillaElement) {
-        if (id.startsWith('I')) {
-          casillaElement.classList.add('casilla-correcta-I');
-        } else if (id.startsWith('K')) {
-          casillaElement.classList.add('casilla-correcta-K');
-        } else {
-          casillaElement.classList.add('casilla-correcta'); // B mantiene el verde fosforescente
-        }
+    if (casillaElement) {
+      if (id.startsWith('I')) {
+        casillaElement.classList.add('casilla-correcta-I');
+      } else if (id.startsWith('K')) {
+        casillaElement.classList.add('casilla-correcta-K');
+      } else {
+        casillaElement.classList.add('casilla-correcta'); // B mantiene el verde fosforescente
       }
+    }
 
   } else {
     // Posición aleatoria en todo el tablero
@@ -152,63 +154,67 @@ startButton.addEventListener('click', () => {
     cartilla.style.top = randY + 'px';
   }
 
-    let offsetX, offsetY, startX, startY;
+  let offsetX, offsetY, startX, startY;
 
-    cartilla.addEventListener('mousedown', e => {
-      startX = cartilla.offsetLeft;
-      startY = cartilla.offsetTop;
-      offsetX = e.clientX - startX;
-      offsetY = e.clientY - startY;
+  cartilla.addEventListener('mousedown', e => {
+    startX = cartilla.offsetLeft;
+    startY = cartilla.offsetTop;
+    offsetX = e.clientX - startX;
+    offsetY = e.clientY - startY;
 
-      const onMouseMove = e => {
-        cartilla.style.left = (e.clientX - offsetX) + 'px';
-        cartilla.style.top = (e.clientY - offsetY) + 'px';
-      };
+    const onMouseMove = e => {
+      cartilla.style.left = (e.clientX - offsetX) + 'px';
+      cartilla.style.top = (e.clientY - offsetY) + 'px';
+    };
 
-      const onMouseUp = () => {
-        document.removeEventListener('mousemove', onMouseMove);
-        document.removeEventListener('mouseup', onMouseUp);
+    const onMouseUp = () => {
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseup', onMouseUp);
 
-        const [correctX, correctY] = posicionesCorrectas[cartilla.id];
-        const dx = Math.abs(cartilla.offsetLeft - correctX);
-        const dy = Math.abs(cartilla.offsetTop - correctY);
+      const [correctX, correctY] = posicionesCorrectas[cartilla.id];
+      const dx = Math.abs(cartilla.offsetLeft - correctX);
+      const dy = Math.abs(cartilla.offsetTop - correctY);
 
-        const casillaElement = document.querySelector(`#casilla-${cartilla.id}`);
+      const casillaElement = document.querySelector(`#casilla-${cartilla.id}`);
 
-        if (dx < 40 && dy < 40) {
-          cartilla.style.left = correctX + 'px';
-          cartilla.style.top = correctY + 'px';
-          cartilla.style.pointerEvents = "none";
-          piezasCorrectas.add(cartilla.id);
+      if (dx < 40 && dy < 40) {
+        cartilla.style.left = correctX + 'px';
+        cartilla.style.top = correctY + 'px';
+        cartilla.style.pointerEvents = "none";
+        piezasCorrectas.add(cartilla.id);
 
-          if (casillaElement) {
-            if (id.startsWith("I")) {
-              casillaElement.classList.add('casilla-correcta-I');
-            } else if (id.startsWith("K")) {
-              casillaElement.classList.add('casilla-correcta-K');
-            } else {
-              casillaElement.classList.add('casilla-correcta');
-            }
-            mostrarMensajeCorrecto();
+        if (casillaElement) {
+          if (id.startsWith("I")) {
+            casillaElement.classList.add('casilla-correcta-I');
+          } else if (id.startsWith("K")) {
+            casillaElement.classList.add('casilla-correcta-K');
+          } else {
+            casillaElement.classList.add('casilla-correcta');
           }
-
           mostrarMensajeCorrecto();
+        }
 
-         // Verificamos si todas las piezas están correctas
+        mostrarMensajeCorrecto();
+
+        // Verificamos si todas las piezas están correctas
         if (piezasCorrectas.size === piezas.length) {
           const mensajeFinal = document.getElementById('mensaje-final');
           mensajeFinal.style.display = 'block';
-          mensajeFinal.style.animation = 'fadeIn 1s ease-in-out forwards';   
+          mensajeFinal.style.animation = 'fadeIn 1s ease-in-out forwards';
           mostrarMensajeFinal(); // Muestra el mensaje, sonido y chispas
         }
-        } else {
-          cartilla.style.left = startX + 'px';
-          cartilla.style.top = startY + 'px';
+      } else {
+        // Evita mostrar mensaje repetido si ya está visible
+        if (mensajeError.style.display !== 'block') {
           mostrarMensajeInCorrecto();
         }
-        };
+        cartilla.style.left = startX + 'px';
+        cartilla.style.top = startY + 'px';
+      }
+    };
 
-      document.addEventListener('mousemove', onMouseMove);
-      document.addEventListener('mouseup', onMouseUp);
-    });
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
   });
+});
+
