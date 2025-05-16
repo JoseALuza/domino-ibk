@@ -3,6 +3,8 @@ const startButton   = document.getElementById('start-button');
 const usernameInput = document.getElementById('username-input');
 
 startButton.addEventListener('click', () => {
+  const name = usernameInput.value.trim();
+  
   const words = name.split(' ').filter(w => w.length > 0);
   if (words.length < 2) {
     alert('Por favor, ingresa nombre y apellido completos');
