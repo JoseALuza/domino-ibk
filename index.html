@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <title>Juego Dominó - IBK</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <script defer src="scripts.js"></script>
+  <div>
+    <div id="instrucciones">
+      <img src="static/img/logo.png" alt="Logo" style="max-width: 180px; display: block; margin: 10px 25px 35px -10px;">
+      <h2 class="titulo">Instrucciones</h2>
+      <p class="descripcion">
+        Une cada <strong><span style="color: #105e10;">valor</span></strong> con su
+        <strong><span style="color: #36e433;">comportamiento</span></strong> correcto.
+      </p>      
+      <p class="descripcion">
+        Arrastra las piezas al tablero y colócalas en la casilla correspondiente.
+      </p>
+    </div>
+  </div>
+  <!-- Contenedor para las chispas -->
+  <div id="chispas"></div>
+
+  <div id="tablero">
+    <div class="mensaje-correcto" id="mensaje-correcto">¡Correcto!</div>
+    <div id="mensaje-final">¡Ganaste!</div>
+    <div id="mensaje-error" style="display: none;" class="mensaje-error">¡Ups! Sigue intentando</div>
+
+    <!-- Casillas (con IDs únicos prefijados con 'casilla-') -->
+    <!-- I -->
+    <div class="casilla" id="casilla-I1" style="top: 30px; left: 30px;"><span class="numero-casilla">I1</span></div>
+    <div class="casilla" id="casilla-I2" style="top: 210px; left: 30px;"><span class="numero-casilla">I2</span></div>
+    <div class="casilla" id="casilla-I3" style="top: 390px; left: 30px;"><span class="numero-casilla">I3</span></div>
+
+    <!-- B -->
+    <div class="casilla" id="casilla-B1" style="top: 30px; left: 180px;"></div>
+    <div class="casilla" id="casilla-B4" style="top: -10px; left: 320px;"><span class="numero-casilla-invertida">B4</span></div>
+    <div class="casilla" id="casilla-B7" style="top: 70px; left: 450px;"></div>
+    <div class="casilla" id="casilla-B2" style="top: 210px; left: 180px;"><span class="numero-casilla">B2</span></div>
+    <div class="casilla" id="casilla-B5" style="top: 185px; left: 320px;"></div>
+    <div class="casilla" id="casilla-B8" style="top: 295px; left: 450px;"></div>
+    <div class="casilla" id="casilla-B3" style="top: 390px; left: 180px;"><span class="numero-casilla">B3</span></div>
+    <div class="casilla" id="casilla-B6" style="top: 410px; left: 320px;"></div>
+
+    <!-- K -->
+    <div class="casilla" id="casilla-K1" style="top: 30px; left: 580px;"><span class="numero-casilla">K1</span></div>
+    <div class="casilla" id="casilla-K2" style="top: 210px; left: 580px;"><span class="numero-casilla">K2</span></div>
+    <div class="casilla" id="casilla-K3" style="top: 390px; left: 580px;"><span class="numero-casilla">K3</span></div>
+    <div class="casilla" id="casilla-K4" style="top: 13px; left: 830px;"></div>
+    <div class="casilla" id="casilla-K5" style="top: 123px; left: 720px;"></div>
+    <div class="casilla" id="casilla-K6" style="top: 243px; left: 790px;"></div>
+    <div class="casilla" id="casilla-K7" style="top: 363px; left: 900px;"></div>
+
+    <!-- Cartillas -->
+    <img src="static/img/I1.png" id="I1" class="cartilla">
+    <img src="static/img/I2.png" id="I2" class="cartilla">
+    <img src="static/img/I3.png" id="I3" class="cartilla">
+    <img src="static/img/B1.png" id="B1" class="cartilla">
+    <img src="static/img/B4.png" id="B4" class="cartilla">
+    <img src="static/img/B7.png" id="B7" class="cartilla">
+    <img src="static/img/B2.png" id="B2" class="cartilla">
+    <img src="static/img/B5.png" id="B5" class="cartilla">
+    <img src="static/img/B8.png" id="B8" class="cartilla">
+    <img src="static/img/B3.png" id="B3" class="cartilla">
+    <img src="static/img/B6.png" id="B6" class="cartilla">
+    <img src="static/img/K1.png" id="K1" class="cartilla">
+    <img src="static/img/K2.png" id="K2" class="cartilla">
+    <img src="static/img/K3.png" id="K3" class="cartilla">
+    <img src="static/img/K4.png" id="K4" class="cartilla">
+    <img src="static/img/K5.png" id="K5" class="cartilla">
+    <img src="static/img/K6.png" id="K6" class="cartilla">
+    <img src="static/img/K7.png" id="K7" class="cartilla">
+
+    <img src="static/img/Insponsor.png" alt="Insponsor" style="position: absolute; bottom: 290px; right: 10px; max-width: 150px;">
+  </div>
+</body>
+</html>
