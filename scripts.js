@@ -4,7 +4,8 @@ const usernameInput = document.getElementById('username-input');
 
 startButton.addEventListener('click', () => {
   const name = usernameInput.value.trim();
-  if (!name) {
+  if (!name || name.split(' ').filter(w => w.length > 0).length < 2) {
+    alert('Por favor, ingresa nombre y apellido completos');
     usernameInput.focus();
     return;
   }
